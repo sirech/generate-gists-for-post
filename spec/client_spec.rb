@@ -3,8 +3,10 @@ require 'spec_helper'
 require_relative '../client'
 
 RSpec.describe Gists do
+  let(:subject) { Gists.new }
+
   it 'initializes' do
-    Gists.new
+    subject
   end
 
   it 'calls the right api when creating gists' do
@@ -18,10 +20,10 @@ RSpec.describe Gists do
             description: 'desc',
             public: true)
 
-    Gists.new.create([
-                       ['filename.rb', 'stuff'],
-                       ['filename2.rb', 'more stuff']
-                     ],
-                     description: 'desc')
+    subject.create([
+                     ['filename.rb', 'stuff'],
+                     ['filename2.rb', 'more stuff']
+                   ],
+                   description: 'desc')
   end
 end
