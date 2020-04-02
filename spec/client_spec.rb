@@ -1,0 +1,27 @@
+require 'spec_helper'
+
+require_relative '../client'
+
+RSpec.describe Gists do
+  it 'initializes' do
+    Gists.new
+  end
+
+  it 'calls the right api when creating gists' do
+    expected_files = {
+      'filename.rb' => { content: 'stuff' },
+      'filename2.rb' => { content: 'more stuff' }
+    }
+
+    expect_any_instance_of(Octokit::Client).to receive(:create_gist)
+      .with(files: expected_files,
+            description: 'desc',
+            public: true)
+
+    Gists.new.create([
+                       ['filename.rb', 'stuff'],
+                       ['filename2.rb', 'more stuff']
+                     ],
+                     description: 'desc')
+  end
+end
