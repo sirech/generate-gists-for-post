@@ -1,5 +1,7 @@
 ## Gists generator 
 
+[![CircleCI](https://circleci.com/gh/sirech/generate-gists-for-post.svg?style=svg)](https://circleci.com/gh/sirech/generate-gists-for-post) [![Coverage Status](https://coveralls.io/repos/github/sirech/generate-gists-for-post/badge.svg?branch=master)](https://coveralls.io/github/sirech/generate-gists-for-post?branch=master) [![Depfu](https://badges.depfu.com/badges/d464da264935e160624c2f07fde057d4/overview.svg)](https://depfu.com/github/sirech/generate-gists-for-post)
+
 This is intended to parse [markdown](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet) documents and extract all the code blocks and post them as [gists](https://gist.github.com/).
 
 It is intended to be used to prepare a markdown document for publication in [Medium](https://medium.com/).
