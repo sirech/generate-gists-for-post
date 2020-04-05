@@ -46,13 +46,7 @@ class Reader
                          .map(&:strip)
         raise ArgumentError, 'No name specified for block' unless name
 
-        block = []
-
-        idx += 1
-        while lines[idx] !~ /```/
-          block << lines[idx]
-          idx += 1
-        end
+        block, idx = capture_block(lines, idx)
 
         @blocks << {
           name: name,
@@ -72,5 +66,17 @@ class Reader
     else
       name
     end
+  end
+
+  def capture_block(lines, idx)
+    block = []
+
+    idx += 1
+    while lines[idx] !~ /```/
+      block << lines[idx]
+      idx += 1
+    end
+
+    [block, idx]
   end
 end
