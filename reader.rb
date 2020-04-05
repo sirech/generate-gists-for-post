@@ -15,23 +15,28 @@ class Reader
   end
 
   def code_blocks
-    @blocks.map { |block|
+    @blocks.map do |block|
       [
         block_name(block[:name], block[:language]),
         block[:content]
       ]
-    }
+    end
   end
 
   private
 
   def extension(language)
+    return nil if language.empty?
+
     d = {
       'kotlin' => 'kt',
       'javascript' => 'js',
       'typescript' => 'ts',
       'hcl' => 'hcl'
     }
+
+    raise ArgumentError, "Unknown language #{language}" unless d.key?(language)
+
     d[language]
   end
 

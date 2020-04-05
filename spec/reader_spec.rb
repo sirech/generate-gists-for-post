@@ -23,7 +23,11 @@ RSpec.describe do
     end
 
     it 'raises an error if a block does not have a title' do
-      expect { reader('no-name.md') }.to raise_error(ArgumentError)
+      expect { reader('no-name.md').code_blocks }.to raise_error(ArgumentError)
+    end
+
+    it 'raises an error if a block has an unknown language' do
+      expect { reader('unknown-language.md').code_blocks }.to raise_error(ArgumentError)
     end
 
     it 'returns a list of code blocks with the actual code in the second position' do
