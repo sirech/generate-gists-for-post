@@ -17,7 +17,8 @@ class Reader
   def code_blocks
     @blocks.map { |block|
       [
-        block_name(block[:name], block[:language])
+        block_name(block[:name], block[:language]),
+        block[:content]
       ]
     }
   end
@@ -49,14 +50,14 @@ class Reader
 
         idx += 1
         while lines[idx] !~ /```/
-          # block << lines[idx]
+          block << lines[idx]
           idx += 1
         end
 
         @blocks << {
           name: name,
           language: language,
-          content: block.join("\n")
+          content: block.join
         }
       end
 

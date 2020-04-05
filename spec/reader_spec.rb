@@ -3,7 +3,7 @@ require 'spec_helper'
 require_relative '../reader'
 
 RSpec.describe do
-  let(:subject) { reader("example.md") }
+  let(:subject) { reader('example.md') }
 
   describe '.code_blocks_count' do
     it { expect(subject.code_blocks_count).to eq(8) }
@@ -24,6 +24,18 @@ RSpec.describe do
 
     it 'raises an error if a block does not have a title' do
       expect { reader('no-name.md') }.to raise_error(ArgumentError)
+    end
+
+    it 'returns a list of code blocks with the actual code in the second position' do
+      expected_code = %(@ExceptionHandler(JWTVerificationException::class)
+fun handleException(exception: JWTVerificationException): ResponseEntity<ErrorMessage> {
+    return ResponseEntity
+      .status(HttpStatus.BAD_GATEWAY)
+      .body(ErrorMessage.fromException(exception))
+}
+)
+      _, code = subject.code_blocks[0]
+      expect(code).to eq(expected_code)
     end
   end
 
