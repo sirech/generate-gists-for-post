@@ -11,8 +11,8 @@ RSpec.describe Gists do
 
   it 'calls the right api when creating gists' do
     expected_files = {
-      'filename.rb' => { content: 'stuff' },
-      'filename2.rb' => { content: 'more stuff' }
+      '1-filename.rb' => { content: 'stuff' },
+      '2-filename2.rb' => { content: 'more stuff' }
     }
 
     expect_any_instance_of(Octokit::Client).to receive(:create_gist)
