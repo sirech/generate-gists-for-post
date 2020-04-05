@@ -26,7 +26,10 @@ class Reader
 
   def extension(language)
     d = {
-      'kotlin' => 'kt'
+      'kotlin' => 'kt',
+      'javascript' => 'js',
+      'typescript' => 'ts',
+      'hcl' => 'hcl'
     }
     d[language]
   end
