@@ -4,11 +4,11 @@ set -e -o pipefail
 SCRIPT_DIR=$(cd "$(dirname "$0")"; pwd -P)
 
 goal_linter() {
-  rubocop
+  bundle exec rubocop
 }
 
 goal_test() {
-  rspec spec
+  bundle exec rspec spec
 }
 
 validate-args() {
