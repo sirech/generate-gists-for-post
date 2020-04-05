@@ -40,10 +40,7 @@ class Reader
 
     while idx < lines.count
       if lines[idx] =~ /```/
-        language, name = lines[idx]
-                         .sub(/```/, '')
-                         .split('#')
-                         .map(&:strip)
+        language, name = language_and_name lines[idx]
         raise ArgumentError, 'No name specified for block' unless name
 
         block, idx = capture_block(lines, idx)
@@ -78,5 +75,12 @@ class Reader
     end
 
     [block, idx]
+  end
+
+  def language_and_name(line)
+    line
+      .sub(/```/, '')
+      .split('#')
+      .map(&:strip)
   end
 end
