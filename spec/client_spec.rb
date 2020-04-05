@@ -19,6 +19,7 @@ RSpec.describe Gists do
       .with(files: expected_files,
             description: 'desc',
             public: true)
+      .and_return(double(:gists, git_pull_url: 'http://github.com '))
 
     subject.create([
                      ['filename.rb', 'stuff'],
