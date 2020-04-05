@@ -32,7 +32,9 @@ class Reader
       'kotlin' => 'kt',
       'javascript' => 'js',
       'typescript' => 'ts',
-      'hcl' => 'hcl'
+      'hcl' => 'hcl',
+      'json' => 'json',
+      'groovy' => 'groovy'
     }
 
     raise ArgumentError, "Unknown language #{language}" unless d.key?(language)
