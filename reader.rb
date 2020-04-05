@@ -14,23 +14,41 @@ class Reader
     @blocks.count
   end
 
+  def code_blocks
+    @blocks.map { |block|
+      [
+        block_name(block[:name], block[:language])
+      ]
+    }
+  end
+
   private
+
+  def extension(language)
+    d = {
+      'kotlin' => 'kt'
+    }
+    d[language]
+  end
 
   def read_blocks(lines)
     idx = 0
 
     while idx < lines.count
-      if lines[idx] =~ /```(.*) #(.*)/
-        language = $1.strip
-        name = $2.strip
+      if lines[idx] =~ /```/
+        language, name = lines[idx]
+                         .sub(/```/, '')
+                         .split('#')
+                         .map(&:strip)
+        raise ArgumentError, 'No name specified for block' unless name
+
         block = []
 
-        # idx += 1
-        # while lines[idx] != '```'
-        #   puts lines[idx]
-        #   block << lines[idx]
-        #   idx += 1
-        # end
+        idx += 1
+        while lines[idx] !~ /```/
+          # block << lines[idx]
+          idx += 1
+        end
 
         @blocks << {
           name: name,
@@ -40,6 +58,15 @@ class Reader
       end
 
       idx += 1
+    end
+  end
+
+  def block_name(name, language)
+    ext = extension language
+    if ext
+      "#{name}.#{ext}"
+    else
+      name
     end
   end
 end

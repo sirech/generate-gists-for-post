@@ -30,5 +30,3 @@ class Gists
     list.map(&:first).uniq.count != list.count
   end
 end
-
-puts Gists.new.create([['filename.rb', 'puts puts'], ['filename2.rb', 'kooot']], description: 'my gist')
