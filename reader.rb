@@ -1,3 +1,12 @@
+LANGUAGES = {
+  'kotlin' => 'kt',
+  'javascript' => 'js',
+  'typescript' => 'ts',
+  'hcl' => 'hcl',
+  'json' => 'json',
+  'groovy' => 'groovy'
+}.freeze
+
 class Reader
   def initialize(filename)
     @filename = filename
@@ -28,18 +37,9 @@ class Reader
   def extension(language)
     return nil if language.empty?
 
-    d = {
-      'kotlin' => 'kt',
-      'javascript' => 'js',
-      'typescript' => 'ts',
-      'hcl' => 'hcl',
-      'json' => 'json',
-      'groovy' => 'groovy'
-    }
+    raise ArgumentError, "Unknown language #{language}" unless LANGUAGES.key?(language)
 
-    raise ArgumentError, "Unknown language #{language}" unless d.key?(language)
-
-    d[language]
+    LANGUAGES[language]
   end
 
   def read_blocks(lines)
@@ -52,11 +52,7 @@ class Reader
 
         block, idx = capture_block(lines, idx)
 
-        @blocks << {
-          name: name,
-          language: language,
-          content: block.join
-        }
+        @blocks << { name: name, language: language, content: block.join }
       end
 
       idx += 1

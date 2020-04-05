@@ -6,3 +6,4 @@ gem 'thor'
 
 gem 'rspec'
 gem 'rubocop'
+gem 'rubocop-rspec'

@@ -3,7 +3,7 @@ require 'spec_helper'
 require_relative '../client'
 
 RSpec.describe Gists do
-  let(:subject) { Gists.new }
+  let(:subject) { described_class.new }
 
   it 'initializes' do
     subject
@@ -16,15 +16,10 @@ RSpec.describe Gists do
     }
 
     expect_any_instance_of(Octokit::Client).to receive(:create_gist)
-      .with(files: expected_files,
-            description: 'desc',
-            public: true)
-      .and_return(double(:gists, git_pull_url: 'http://github.com '))
+      .with(files: expected_files, description: 'desc', public: true)
+      .and_return(instance_double('gists', git_pull_url: 'http://github.com '))
 
-    subject.create([
-                     ['filename.rb', 'stuff'],
-                     ['filename2.rb', 'more stuff']
-                   ],
+    subject.create([['filename.rb', 'stuff'], ['filename2.rb', 'more stuff']],
                    description: 'desc')
   end
 end

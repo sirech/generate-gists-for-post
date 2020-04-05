@@ -2,7 +2,7 @@ require 'spec_helper'
 
 require_relative '../reader'
 
-RSpec.describe do
+RSpec.describe Reader do
   let(:subject) { reader('example.md') }
 
   describe '.code_blocks_count' do
@@ -19,7 +19,7 @@ RSpec.describe do
     it 'works for snippets without extensions' do
       r = reader('no-extension.md')
 
-      expect(r.code_blocks.map(&:first)).to eq(["example1"])
+      expect(r.code_blocks.map(&:first)).to eq(['example1'])
     end
 
     it 'raises an error if a block does not have a title' do

@@ -22,8 +22,8 @@ class Gists
 
   def formatted_files(list)
     Hash[list.map.with_index do |elem, index|
-           filename, content = elem
-           ["#{index+1}-#{filename}", { content: content }]
+      filename, content = elem
+      ["#{index + 1}-#{filename}", { content: content }]
     end]
   end
 

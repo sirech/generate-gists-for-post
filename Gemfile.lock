@@ -44,6 +44,8 @@ GEM
       rexml
       ruby-progressbar (~> 1.7)
       unicode-display_width (>= 1.4.0, < 2.0)
+    rubocop-rspec (1.38.1)
+      rubocop (>= 0.68.1)
     ruby-progressbar (1.10.1)
     sawyer (0.8.2)
       addressable (>= 2.3.5)
@@ -59,6 +61,7 @@ DEPENDENCIES
   pry
   rspec
   rubocop
+  rubocop-rspec
   thor
 
 BUNDLED WITH
