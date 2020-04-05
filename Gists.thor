@@ -7,7 +7,8 @@ class Gists < Thor
     r = Reader.new(path(file)).process
     puts "Code blocks found: #{r.code_blocks_count}"
 
-    ::Gists.new.create(r.code_blocks)
+    url = ::Gists.new.create(r.code_blocks)
+    puts "Created gists can be found under: #{url}"
   end
 
   private

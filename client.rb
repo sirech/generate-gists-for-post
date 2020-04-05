@@ -15,7 +15,7 @@ class Gists
       files: files,
       description: description,
       public: is_public
-    )
+    ).git_pull_url
   end
 
   private
