@@ -15,7 +15,7 @@ Documentation:
   Enabled: false
 
 Metrics/BlockLength:
-  ExcludedMethods: ['describe', 'context']
+  ExcludedMethods: ['describe', 'context', 'it']
 
 Layout/LineLength:
   Max: 100
@@ -28,7 +28,7 @@ RSpec/DescribeClass:
     - spec/infra/*
 
 RSpec/ExampleLength:
-  Max: 10
+  Max: 15
 
 RSpec/FilePath:
   Enabled: false
@@ -40,4 +40,7 @@ RSpec/NamedSubject:
   Enabled: false
 
 Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Style/PerlBackrefs:
   Enabled: false
