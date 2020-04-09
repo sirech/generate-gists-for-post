@@ -7,24 +7,26 @@ class Gists
     @client = Octokit::Client.new(access_token: ENV['GIST_GITHUB_API_TOKEN'])
   end
 
-  def create(list, description: '', is_public: true)
+  def create(list, prefix:, description: '', is_public: true)
     raise ArgumentError, 'duplicated filename' if duplicated_filenames?(list)
 
-    files = formatted_files list
-    @client.create_gist(
-      files: files,
-      description: description,
-      public: is_public
-    ).git_pull_url
+    files = formatted_files list, prefix
+    files.map do |file|
+      @client.create_gist(
+        files: file,
+        description: description,
+        public: is_public
+      ).git_pull_url
+    end
   end
 
   private
 
-  def formatted_files(list)
-    Hash[list.map.with_index do |elem, index|
+  def formatted_files(list, prefix)
+    list.map.with_index do |elem, index|
       filename, content = elem
-      ["#{index + 1}-#{filename}", { content: content }]
-    end]
+      { "#{prefix}-#{index + 1}-#{filename}" => { content: content } }
+    end
   end
 
   def duplicated_filenames?(list)

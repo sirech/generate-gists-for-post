@@ -48,12 +48,9 @@ class Reader
 
     while idx < lines.count
       if lines[idx] =~ /```/
-        language = language_from_line lines[idx]
-        name = name_from_line lines[idx-1]
-        raise ArgumentError, 'No name specified for block' unless name
+        language, name = language_and_name(lines, idx)
 
         block, idx = capture_block(lines, idx)
-
         @blocks << { name: name, language: language, content: block.join }
       end
 
@@ -80,6 +77,14 @@ class Reader
     end
 
     [block, idx]
+  end
+
+  def language_and_name(lines, idx)
+    language = language_from_line lines[idx]
+    name = name_from_line lines[idx - 1]
+    raise ArgumentError, 'No name specified for block' unless name
+
+    [language, name]
   end
 
   def language_from_line(line)
