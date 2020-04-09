@@ -9,6 +9,7 @@ class Gists
 
   def create(list, prefix:, description: '', is_public: true)
     raise ArgumentError, 'duplicated filename' if duplicated_filenames?(list)
+    raise ArgumentError, 'prefix cannot be empty' if prefix.empty?
 
     files = formatted_files list, prefix
     files.map do |file|
