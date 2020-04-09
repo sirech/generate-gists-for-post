@@ -25,7 +25,8 @@ If we don't handle the exception, it will bubble up until our API returns a 500 
 
 A typical pattern in the [SpringBoot](https://spring.io/projects/spring-boot) ecosystem is using an exception handler. You put this method in the controller, and it catches automagically exceptions that happen in the chain. Our caller then gets the error formatted the way we want.
 
-```kotlin  # example1
+<!-- example1 -->
+```kotlin
 @ExceptionHandler(JWTVerificationException::class)
 fun handleException(exception: JWTVerificationException): ResponseEntity<ErrorMessage> {
     return ResponseEntity
@@ -46,7 +47,8 @@ Instead, I want to show how to make errors explicit by using _Either Types_.
 
 Let's say that our `Service` from the diagram above is going to verify [JSON Web Tokens](https://jwt.io/). The idea is simple. We are getting a _JWT_ as a string, and we want to know if it is a valid token. If so, we want to get certain properties that we will wrap in a `TokenAuthentication`. This interface defines it:
 
-```kotlin # example2
+<!-- example2 -->
+```kotlin
 interface Verifier {
     /**
      * @param jwt a jwt token
@@ -88,7 +90,8 @@ With that being said, let's rewrite our code to make use of `Either`.
 
 The `Verifier` class returns an `Either` type to indicate that the computation might fail.
 
-```kotlin # example3
+<!-- example3 -->
+```kotlin
 interface Verifier {
     /**
      * @param jwt a jwt token
@@ -104,7 +107,8 @@ Note that we are still using the exception to signal an error, but we are not _t
 
 Inside our implementation of `Verifier`, we are wrapping the problematic code from the library that we use with an extension method called `unsafeVerify`:
 
-```kotlin # example4
+<!-- example4 -->
+```kotlin
 private fun JWTVerifier.unsafeVerify(jwt: String) = try {
     verify(jwt).right()
 } catch (e: JWTVerificationException) {
@@ -118,7 +122,8 @@ _Arrow_ provides a ton of convenience methods to make it simpler to use. Thanks 
 
 Implementation is done. How do we use this in our code? Whenever you want to operate on the underlying type, ignoring the error case, you can use `map`. That allows you to chain calls without having to check whether the value is valid or not. There is an equivalent `mapLeft` for the error side.
 
-```kotlin # example5
+<!-- example5 -->
+```kotlin
 verifier
  .unsafeVerify(jwt)
  .map { it.asToken() }
@@ -126,7 +131,8 @@ verifier
 
 Ultimately, you want to convert the `Left` and `Right` branches into one value. One option is to use the functional [fold](https://wiki.haskell.org/Fold) method.
 
-```kotlin # example6
+<!-- example6 -->
+```kotlin
 val result = verifier.verify(jwt)
 result.fold(
     ifLeft = { ResponseEntity.badRequest().build() },
@@ -136,7 +142,8 @@ result.fold(
 
 Or we can use a `when` expression because `Left` and `Right` happen to be [sealed classes](https://kotlinlang.org/docs/reference/sealed-classes.html).
 
-```kotlin # example7
+<!-- example7 -->
+```kotlin
 val result = verifier.verify(jwt)
 when (result) {
     is Either.Left -> ResponseEntity.badRequest().build()
@@ -152,7 +159,8 @@ So that's pretty much it. The `Verifier` doesn't throw exceptions anymore. Inste
 
 Since _Kotlin_ 1.3, there is a built-in way of dealing with computations that can fail. It is the `Result` class, which is typically used in a `runCatching` block:
 
-```kotlin # example8
+<!-- example8 -->
+```kotlin
 runCatching {
     methodThatMightThrow()
 }.getOrElse { ex ->

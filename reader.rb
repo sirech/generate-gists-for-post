@@ -4,7 +4,8 @@ LANGUAGES = {
   'typescript' => 'ts',
   'hcl' => 'hcl',
   'json' => 'json',
-  'groovy' => 'groovy'
+  'groovy' => 'groovy',
+  'console' => 'sh'
 }.freeze
 
 class Reader
@@ -47,7 +48,8 @@ class Reader
 
     while idx < lines.count
       if lines[idx] =~ /```/
-        language, name = language_and_name lines[idx]
+        language = language_from_line lines[idx]
+        name = name_from_line lines[idx-1]
         raise ArgumentError, 'No name specified for block' unless name
 
         block, idx = capture_block(lines, idx)
@@ -80,10 +82,15 @@ class Reader
     [block, idx]
   end
 
-  def language_and_name(line)
+  def language_from_line(line)
     line
       .sub(/```/, '')
-      .split('#')
-      .map(&:strip)
+      .strip
+  end
+
+  def name_from_line(line)
+    return unless line =~ /<!--(.*)-->/
+
+    $1.strip
   end
 end
