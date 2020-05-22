@@ -5,7 +5,11 @@ LANGUAGES = {
   'hcl' => 'hcl',
   'json' => 'json',
   'groovy' => 'groovy',
-  'console' => 'sh'
+  'console' => 'sh',
+  'jsonnet' => 'jsonnet',
+  'python' => 'py',
+  'yaml' => 'yaml',
+  'shell' => 'sh'
 }.freeze
 
 class Reader
