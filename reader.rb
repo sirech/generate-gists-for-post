@@ -19,7 +19,7 @@ class Reader
   end
 
   def process
-    lines = File.open(@filename).readlines
+    lines = File.open(@filename, 'r:utf-8').readlines
     read_blocks(lines)
     self
   end
