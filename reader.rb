@@ -9,7 +9,8 @@ LANGUAGES = {
   'jsonnet' => 'jsonnet',
   'python' => 'py',
   'yaml' => 'yaml',
-  'shell' => 'sh'
+  'shell' => 'sh',
+  'rust' => 'rs'
 }.freeze
 
 class Reader
