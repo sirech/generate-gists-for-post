@@ -16,7 +16,7 @@ Documentation:
   Enabled: false
 
 Metrics/BlockLength:
-  ExcludedMethods: ['describe', 'context', 'it']
+  IgnoredMethods: ['describe', 'context', 'it']
 
 Layout/LineLength:
   Max: 100
