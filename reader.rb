@@ -10,7 +10,8 @@ LANGUAGES = {
   'python' => 'py',
   'yaml' => 'yaml',
   'shell' => 'sh',
-  'rust' => 'rs'
+  'rust' => 'rs',
+  'toml' => 'toml'
 }.freeze
 
 class Reader
