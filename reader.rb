@@ -2,6 +2,7 @@ LANGUAGES = {
   'kotlin' => 'kt',
   'javascript' => 'js',
   'typescript' => 'ts',
+  'js' => 'js',
   'jsx' => 'jsx',
   'hcl' => 'hcl',
   'json' => 'json',
