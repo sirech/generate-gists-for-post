@@ -14,7 +14,8 @@ LANGUAGES = {
   'shell' => 'sh',
   'rust' => 'rs',
   'toml' => 'toml',
-  'nginx' => 'conf'
+  'nginx' => 'conf',
+  'ruby' => 'rb'
 }.freeze
 
 class Reader
