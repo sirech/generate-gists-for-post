@@ -1,22 +1,22 @@
 LANGUAGES = {
-  'kotlin' => 'kt',
-  'javascript' => 'js',
-  'typescript' => 'ts',
-  'js' => 'js',
-  'jsx' => 'jsx',
-  'hcl' => 'hcl',
-  'json' => 'json',
-  'groovy' => 'groovy',
   'console' => 'sh',
+  'groovy' => 'groovy',
+  'hcl' => 'hcl',
+  'java' => 'java',
+  'javascript' => 'js',
+  'js' => 'js',
+  'json' => 'json',
   'jsonnet' => 'jsonnet',
-  'python' => 'py',
-  'yaml' => 'yaml',
-  'shell' => 'sh',
-  'rust' => 'rs',
-  'toml' => 'toml',
+  'jsx' => 'jsx',
+  'kotlin' => 'kt',
   'nginx' => 'conf',
+  'python' => 'py',
   'ruby' => 'rb',
-  'java' => 'java'
+  'rust' => 'rs',
+  'shell' => 'sh',
+  'toml' => 'toml',
+  'typescript' => 'ts',
+  'yaml' => 'yaml'
 }.freeze
 
 class Reader
